@@ -1,0 +1,99 @@
+.add-form {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.add-form > label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 650;
+}
+
+.input-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-action input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.input-action .button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.item-list {
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+}
+
+.item-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.item-row:last-child {
+  border-bottom: 0;
+}
+
+.item-row code {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 9px;
+  overflow-wrap: anywhere;
+}
+
+[data-density="compact"] .item-row {
+  padding-block: 6px;
+}
+
+.framework-notes dl {
+  margin: 0;
+  padding: 4px 16px 16px;
+}
+
+.framework-notes dl div {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.framework-notes dl div:last-child {
+  border-bottom: 0;
+}
+
+.framework-notes dt {
+  font-weight: 700;
+}
+
+.framework-notes dd {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.application-settings > .inline-field {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (max-width: 650px) {
+  .item-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .item-row .rename-button {
+    grid-column: 1;
+  }
+}

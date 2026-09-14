@@ -1,0 +1,22 @@
+{
+  "name": "html-tool-framework",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test",
+    "template:check": "knitto check .",
+    "template:plan": "knitto plan . --update",
+    "template:update": "knitto apply . --update"
+  },
+  "devDependencies": {
+    "knitto": "0.3.0",
+    "vite": "^7.1.5"
+  }
+}

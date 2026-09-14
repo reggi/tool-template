@@ -1,0 +1,16 @@
+{
+  "source": {
+    "type": "git",
+    "url": "https://github.com/reggi/tool-template.git",
+    "path": "knitto",
+    "ref": "main"
+  },
+  "metadata": {},
+  "variables": {},
+  "exclude": {
+    "rules": [],
+    "checks": [],
+    "pointers": {}
+  },
+  "overrides": {}
+}

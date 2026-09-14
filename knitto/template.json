@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "name": "html-tool-framework",
+  "engine": {
+    "package": "knitto",
+    "version": "0.3.0"
+  },
+  "rules": [
+    {
+      "id": "core-application",
+      "type": "file",
+      "source": "src/core/application.js",
+      "destination": "src/core/application.js"
+    },
+    {
+      "id": "core-command-grammar",
+      "type": "file",
+      "source": "src/core/commands/grammar.js",
+      "destination": "src/core/commands/grammar.js"
+    },
+    {
+      "id": "core-errors",
+      "type": "file",
+      "source": "src/core/errors.js",
+      "destination": "src/core/errors.js"
+    },
+    {
+      "id": "core-event-bus",
+      "type": "file",
+      "source": "src/core/events/create-event-bus.js",
+      "destination": "src/core/events/create-event-bus.js"
+    },
+    {
+      "id": "core-index",
+      "type": "file",
+      "source": "src/core/index.js",
+      "destination": "src/core/index.js"
+    },
+    {
+      "id": "core-project-library",
+      "type": "file",
+      "source": "src/core/projects/library.js",
+      "destination": "src/core/projects/library.js"
+    },
+    {
+      "id": "core-runtime",
+      "type": "file",
+      "source": "src/core/runtime/create-html-tool.js",
+      "destination": "src/core/runtime/create-html-tool.js"
+    },
+    {
+      "id": "core-shell",
+      "type": "file",
+      "source": "src/core/runtime/shell.js",
+      "destination": "src/core/runtime/shell.js"
+    },
+    {
+      "id": "core-styles",
+      "type": "file",
+      "source": "src/core/styles.css",
+      "destination": "src/core/styles.css"
+    },
+    {
+      "id": "core-values",
+      "type": "file",
+      "source": "src/core/values.js",
+      "destination": "src/core/values.js"
+    },
+    {
+      "id": "package-tooling",
+      "type": "content",
+      "parser": "package-json",
+      "template": "files/package.managed.json.hbs",
+      "destination": "package.json"
+    },
+    {
+      "id": "template-update-workflow",
+      "type": "file",
+      "source": ".github/workflows/knitto-update.yml",
+      "destination": ".github/workflows/knitto-update.yml"
+    }
+  ],
+  "checks": [
+    {
+      "id": "required-template-tooling",
+      "type": "required-packages",
+      "packages": {
+        "devDependencies": [
+          "knitto@0.3.0"
+        ]
+      }
+    },
+    {
+      "id": "node-engine",
+      "type": "engines"
+    }
+  ]
+}

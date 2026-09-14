@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A composable framework for portable, accessible, state-driven HTML tools." />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="canonical" href="https://tools.reggi.com/html-framework/" />
+    <meta property="og:title" content="HTML Tool Framework" />
+    <meta property="og:description" content="Build portable HTML tools with projects, Source, State JSON, commands, and hookable controls." />
+    <meta property="og:image" content="https://tools.reggi.com/html-framework/social-card.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HTML Tool Framework" />
+    <meta name="twitter:description" content="Build portable HTML tools with projects, Source, State JSON, commands, and hookable controls." />
+    <meta name="twitter:image" content="https://tools.reggi.com/html-framework/social-card.svg" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/core/styles.css" />
+    <link rel="stylesheet" href="/src/app/checklist/styles.css" />
+    <title>HTML Tool Framework</title>
+    <script>
+      (() => {
+        const preference = localStorage.getItem("html-tool-theme") || "system";
+        const dark = preference === "dark" || (preference === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+        if (dark) document.documentElement.dataset.theme = "dark";
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/app/main.js"></script>
+  </body>
+</html>
