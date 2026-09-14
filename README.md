@@ -20,6 +20,28 @@ npm test
 The built application has no runtime package dependencies. Vite is used for
 development and production bundling.
 
+## GitHub Pages deployment
+
+Projects created from this template include
+`.github/workflows/deploy-pages.yml`, which tests and builds the project before
+deploying `dist` to GitHub Pages on every push to `main`. In the repository's
+**Settings -> Pages**, set **Source** to **GitHub Actions**.
+
+The managed Vite configuration uses `base: "./"` so built assets work from a
+repository path such as `https://<owner>.github.io/<repository>/`.
+
+## Template releases
+
+This template uses Release Please to create version pull requests and immutable
+`v{version}` GitHub releases from conventional commits merged into `main`.
+Release pull requests update `package.json`, `.release-please-manifest.json`,
+the release metadata in `knitto/template.json`, and the template ref in
+`.knitto.json` together.
+
+The workflow uses the repository's `GITHUB_TOKEN` by default. Configure a
+`RELEASE_PLEASE_TOKEN` secret when releases need to trigger other workflows
+that ignore events created by `GITHUB_TOKEN`.
+
 ## Domain structure
 
 ```text
@@ -118,9 +140,10 @@ receiving framework updates from:
 https://github.com/reggi/tool-template.git
 ```
 
-Knitto owns `src/core/**`, the template-update workflow, and only the declared
-framework fields in `package.json`. It does not own `src/app/**`, application
-branding, or application tests.
+Knitto owns `src/core/**`, the Vite configuration, the template-update and
+GitHub Pages workflows, and only the declared framework fields in
+`package.json`. It does not own `src/app/**`, application branding, or
+application tests.
 
 Review an available update:
 
@@ -276,7 +299,7 @@ This repository began empty, so these are reversible assumptions for a starter:
 | Responsive | **Assumed** | No page-level horizontal scrolling at 320px or 390px. |
 | Theme | **Assumed** | Persisted System, Light, and Dark modes. |
 | Accessibility | **Assumed** | Semantic structure, labels, focus restoration, keyboard/touch operation, live errors, zoom support, and matching DOM/visual order. |
-| Delivery | **Assumed** | Vite static build, tools-hub link, canonical metadata, favicon, and social card. |
+| Delivery | **Assumed** | Vite static build deployed through GitHub Pages, tools-hub link, canonical metadata, favicon, and social card. |
 
 For a real conversion, relabel evidence as **Observed**, owner choices as
 **Confirmed**, reversible agent choices as **Assumed**, and unsafe unresolved
@@ -297,5 +320,7 @@ decisions as **Blocked**.
 - Every button emits `html-tool:control`; lifecycle operations emit their named
   hooks.
 - Light and dark themes cover all surfaces.
+- The GitHub Pages workflow tests, builds, uploads `dist`, and deploys from
+  `main`.
 - Metadata, canonical URL, favicon, social card, and `All tools` link are
   updated for the deployed tool.

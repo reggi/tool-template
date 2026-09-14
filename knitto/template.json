@@ -5,6 +5,11 @@
     "package": "knitto",
     "version": "0.3.0"
   },
+  "release": {
+    "provider": "release-please",
+    "version": "1.0.0",
+    "tagFormat": "v{version}"
+  },
   "rules": [
     {
       "id": "core-application",
@@ -67,6 +72,12 @@
       "destination": "src/core/values.js"
     },
     {
+      "id": "vite-config",
+      "type": "file",
+      "source": "vite.config.js",
+      "destination": "vite.config.js"
+    },
+    {
       "id": "package-tooling",
       "type": "content",
       "parser": "package-json",
@@ -78,6 +89,12 @@
       "type": "file",
       "source": ".github/workflows/knitto-update.yml",
       "destination": ".github/workflows/knitto-update.yml"
+    },
+    {
+      "id": "github-pages-workflow",
+      "type": "file",
+      "source": ".github/workflows/deploy-pages.yml",
+      "destination": ".github/workflows/deploy-pages.yml"
     }
   ],
   "checks": [

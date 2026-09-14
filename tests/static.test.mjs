@@ -10,6 +10,14 @@ const events = await readFile(new URL("../src/core/events/create-event-bus.js", 
 const workspace = await readFile(new URL("../src/app/checklist/workspace.js", import.meta.url), "utf8");
 const applicationCommands = await readFile(new URL("../src/app/checklist/commands.js", import.meta.url), "utf8");
 const main = await readFile(new URL("../src/app/main.js", import.meta.url), "utf8");
+const viteConfig = await readFile(new URL("../vite.config.js", import.meta.url), "utf8");
+const pagesWorkflow = await readFile(new URL("../.github/workflows/deploy-pages.yml", import.meta.url), "utf8");
+const releaseWorkflow = await readFile(new URL("../.github/workflows/release-please.yml", import.meta.url), "utf8");
+const releaseConfig = JSON.parse(await readFile(new URL("../release-please-config.json", import.meta.url), "utf8"));
+const releaseManifest = JSON.parse(await readFile(new URL("../.release-please-manifest.json", import.meta.url), "utf8"));
+const packageManifest = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+const knittoConfig = JSON.parse(await readFile(new URL("../.knitto.json", import.meta.url), "utf8"));
+const template = JSON.parse(await readFile(new URL("../knitto/template.json", import.meta.url), "utf8"));
 
 test("Vite is the application entry point", () => {
   assert.match(html, /src="\/src\/app\/main\.js"/);
@@ -62,6 +70,40 @@ test("delivery metadata is complete", () => {
   for (const marker of ["rel=\"canonical\"", "og:title", "og:description", "og:image", "twitter:card", "rel=\"icon\""]) {
     assert.ok(html.includes(marker), `Missing ${marker}`);
   }
+});
+
+test("projects are configured for GitHub Pages deployment", () => {
+  assert.match(viteConfig, /base:\s*["']\.\/["']/);
+  assert.match(pagesWorkflow, /actions\/configure-pages@v5/);
+  assert.match(pagesWorkflow, /actions\/upload-pages-artifact@v3/);
+  assert.match(pagesWorkflow, /path:\s*dist/);
+  assert.match(pagesWorkflow, /actions\/deploy-pages@v4/);
+
+  const managedDestinations = new Set(template.rules.map((rule) => rule.destination));
+  assert.ok(managedDestinations.has("vite.config.js"));
+  assert.ok(managedDestinations.has(".github/workflows/deploy-pages.yml"));
+});
+
+test("template releases keep Knitto versions and refs aligned", () => {
+  assert.match(releaseWorkflow, /googleapis\/release-please-action@v4/);
+  assert.equal(releaseManifest["."], packageManifest.version);
+  assert.equal(template.release.version, packageManifest.version);
+  assert.equal(template.release.tagFormat, "v{version}");
+
+  const rootRelease = releaseConfig.packages["."];
+  assert.equal(rootRelease["release-type"], "node");
+  assert.equal(rootRelease["include-v-in-tag"], true);
+  assert.deepEqual(
+    rootRelease["extra-files"].map(({ path, jsonpath }) => [path, jsonpath]),
+    [
+      ["knitto/template.json", "$.release.version"],
+      [".knitto.json", "$.source.ref"],
+    ],
+  );
+  assert.ok(
+    knittoConfig.source.ref === "main" || knittoConfig.source.ref === `v${packageManifest.version}`,
+    "Knitto source must use main before the first release or the current immutable release tag",
+  );
 });
 
 test("mobile, dark, focus, and reduced-motion rules exist", () => {
