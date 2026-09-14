@@ -11,7 +11,7 @@ export const application = defineApplication({
   title: "HTML Tool Framework",
   description: "Composable tool starter",
   iconText: "</>",
-  toolsUrl: "https://tools.reggi.com/",
+  toolsUrl: "https://reggi.github.io/",
   storageKey: "html-tool-framework.checklist.library",
   schemaVersion: SCHEMA_VERSION,
   commandPlaceholder: 'checklist.items.add "Example"',
